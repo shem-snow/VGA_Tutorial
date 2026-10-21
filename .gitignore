@@ -2,9 +2,10 @@
 *
 !.gitignore
 
-# keep Verilog files and Quartus project settings
+# keep Verilog files, Quartus project file, and its settings
 !*.v
 !*.qsf
+!*.qpf
 
 # keep important folders
 !glyphs/
@@ -16,6 +17,14 @@ glyphs/*.exe
 !tb/**
 !docs/
 !docs/**
+!common/
+!common/**
+checkpoint1_color/
+checkpoint1_color/**
+checkpoint2_turn_signal/
+checkpoint2_turn_signal/**
+checkpoint3_mario/
+checkpoint3_mario/**
 
 # keep .csv files
 !*.csv
