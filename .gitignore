@@ -20,12 +20,12 @@ glyphs/*.exe
 !docs/**
 !common/
 !common/**
-checkpoint1_color/
-checkpoint1_color/**
-checkpoint2_turn_signal/
-checkpoint2_turn_signal/**
-checkpoint3_mario/
-checkpoint3_mario/**
+!checkpoint1_color/
+!checkpoint1_color/**
+!checkpoint2_turn_signal/
+!checkpoint2_turn_signal/**
+!checkpoint3_mario/
+!checkpoint3_mario/**
 
 # keep .csv files
 !*.csv
