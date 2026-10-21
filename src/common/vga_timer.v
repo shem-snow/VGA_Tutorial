@@ -49,7 +49,7 @@ module vga_timer (
 	always@(posedge clk) begin
 	
 		// Can be manually reset
-		if(reset == 1'b0) begin
+		if(reset) begin
 				pix_en <= 1'b0;
 				hcount <= 0;
 				vcount <= 0;
@@ -58,14 +58,14 @@ module vga_timer (
 			// Generate a 25 MHz enable signal from the input 50 MHz clock.
 			pix_en <= ~pix_en;
 			
-			// On each positve edge of the 25 MHz clock (because we're drawing to the entire screen every clock tick)
+			// pix_en is high every other clock (and we draw to the entire screen every time it goes high), so this runs at 25 MHz.
 			if (pix_en) begin
 				
 				// If the horizontal count has reached its end then reset it and also check in vcount needs to be reset.
 				if (hcount == H_TOTAL - 1) begin
-					// Pulse/activate hsync to indicate the start of a new row.
+					// Reset hcount to back to column 0.
 					hcount <= 10'd0;
-					// If vcount is at the end then reset it to indicate the start of a new column.
+					// If vcount is at the end then reset it to indicate the start of a new column/frame.
 					if (vcount == V_TOTAL - 1)
 						vcount <= 10'd0;
 					// Otherwise increment it
@@ -75,7 +75,8 @@ module vga_timer (
 				// otherwise increment hcount.
 				else
 					hcount <= hcount + 10'd1;
-		end
-	end
+			end // if (pix_en)
+		end // else (not reset)
+	end // always
 			
 endmodule 
