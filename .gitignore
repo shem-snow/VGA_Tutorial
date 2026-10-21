@@ -2,8 +2,9 @@
 *
 !.gitignore
 
-# keep Verilog files, Quartus project file, and its settings
+# keep Verilog files (not .v.bak files), Quartus project file, and its settings
 !*.v
+*.bak
 !*.qsf
 !*.qpf
 
