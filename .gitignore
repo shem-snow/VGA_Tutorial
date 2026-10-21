@@ -1,37 +1,21 @@
-# Ignore everything (else) by default
+# Ignore everything by default
 *
-!.gitignore
 
-# keep Verilog files (not .v.bak files), Quartus project file, and its settings
-!*.v
-*.bak
-!*.qsf
-!*.qpf
-
-# keep important folders
-!glyphs/
-!glyphs/**
-glyphs/*.exe
-!src/
-!src/**
-!tb/
-!tb/**
-!docs/
-!docs/**
-!common/
-!common/**
-!checkpoint1_color/
-!checkpoint1_color/**
-!checkpoint2_turn_signal/
-!checkpoint2_turn_signal/**
-!checkpoint3_mario/
-!checkpoint3_mario/**
-
-# keep .csv files
-!*.csv
-
-# Allow Git to search one folder/directory down to look for additional files
+# Allow Git to look inside folders (files in them are still filtered below)
 !*/
 
-# Keep the README
+# Project files
+!.gitignore
 !README.md
+!*.qpf
+!*.qsf
+
+# Source and data folders: keep everything inside, at any depth
+!src/**
+!tb/**
+!glyphs/**
+!docs/**
+
+# Exceptions: never keep these, even inside the folders above
+*.bak
+glyphs/*.exe
