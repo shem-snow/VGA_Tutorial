@@ -56,8 +56,6 @@ module VGA_Tutorial (
 	wire [7:0] red1, green1, blue1;
 	bitgen_color mode1 (
 		.bright(bright),
-		.hcount(hcount),
-		.vcount(vcount),
 		.switches(color_select),
 		.VGA_R(red1),
 		.VGA_G(green1),
