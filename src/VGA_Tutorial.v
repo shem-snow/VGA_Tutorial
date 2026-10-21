@@ -21,9 +21,9 @@ module VGA_Tutorial (
     output VGA_VS,
     output VGA_BLANK_N,
     output VGA_SYNC_N,
-    output [7:0] VGA_R,
-    output [7:0] VGA_G,
-    output [7:0] VGA_B
+    output reg [7:0] VGA_R,
+    output reg [7:0] VGA_G,
+    output reg [7:0] VGA_B
 );
 	localparam MODE_OFF   = 2'b00;
 	localparam MODE_COLOR = 2'b01;
@@ -37,7 +37,6 @@ module VGA_Tutorial (
 	assign VGA_HS = hsync;
 	assign VGA_VS = vsync;
 	assign VGA_CLK = pix_en;
-	assign {VGA_R, VGA_G, VGA_B} = rgb;
 	assign VGA_BLANK_N = bright && (mode_select != MODE_OFF);
 	assign VGA_SYNC_N = 1'b0; // Not used
 	
@@ -53,24 +52,40 @@ module VGA_Tutorial (
 		.bright(bright)
 	);
 	
-	// Pick which stage drives the screen
-	reg [23:0] rgb;
-	
-	always @(*) begin
-		case (mode_select)
-			MODE_COLOR: rgb = rgb_color;
-			default:    rgb = 24'h000000;
-		endcase
-	end
-	
-	// Stage 1: changing the entire screen to a solid color.
-	wire [23:0] rgb_color;
-	
+	// Mode 1: changing the entire screen to a solid color.
+	wire [7:0] red1, green1, blue1;
 	bitgen_color mode1 (
 		.bright(bright),
-		.color_sel(color_select),
-		.rgb(rgb_color)
+		.hcount(hcount),
+		.vcount(vcount),
+		.switches(color_select),
+		.VGA_R(red1),
+		.VGA_G(green1),
+		.VGA_B(blue1)
 	);
 	
+	// Mode 2: "Thunderbird" turn signal FSM.
+	wire [7:0] red2, green2, blue2;
+	
+	// Mode 3: Mario walking.
+	wire [7:0] red3, green3, blue3;
+	
+	// Based on the slide switches, pick which bitgen logic drives the screen's RGB values.
+	always @(*) begin
+		case (mode_select)
+			MODE_COLOR: begin
+				VGA_R = red1; VGA_G = green1; VGA_B = blue1;
+			end
+			MODE_TBIRD: begin
+				VGA_R = red2; VGA_G = green2; VGA_B = blue2;
+			end
+			MODE_MARIO: begin
+				VGA_R = red3; VGA_G = green3; VGA_B = blue3;
+			end
+			default: begin // MODE_OFF
+				VGA_R = 8'b0; VGA_G = 8'b0; VGA_B = 8'b0; 
+			end
+		endcase
+	end
 	
 endmodule
