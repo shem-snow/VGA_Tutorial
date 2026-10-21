@@ -104,4 +104,11 @@ set_global_assignment -name VERILOG_FILE src/checkpoint2_turn_signal/bitgen_tbir
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name VERILOG_FILE src/checkpoint3_mario/mario.v
+set_global_assignment -name VERILOG_FILE src/checkpoint3_mario/bram.v
+set_global_assignment -name VERILOG_FILE src/checkpoint3_mario/pulse.v
+set_global_assignment -name VERILOG_FILE src/checkpoint3_mario/register.v
+set_global_assignment -name VERILOG_FILE src/checkpoint3_mario/glyph_rom.v
+set_global_assignment -name VERILOG_FILE src/checkpoint3_mario/bitgen_mario.v
+set_global_assignment -name VERILOG_FILE src/checkpoint3_mario/glyph_addr_gen.v
+set_global_assignment -name VERILOG_FILE src/checkpoint3_mario/movement.v
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
