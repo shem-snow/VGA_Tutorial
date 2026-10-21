@@ -102,7 +102,7 @@ module VGA_Tutorial (
 	wire [7:0] red3, green3, blue3;
 		mario mode3 (
 		.clk(clock),
-		.reset(reset),
+		.reset(reset | ~turn_buttons[1]), // off mode or KEY1
 		.bright(bright),
 		.hsync(hsync),
 		.vsync(vsync),
