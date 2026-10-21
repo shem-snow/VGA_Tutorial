@@ -14,8 +14,7 @@ module VGA_Tutorial (
     input clock, // 50 MHz from the board.
     input [9:8] mode_select, // slide switches [9:8].
     input [2:0] color_select, // slide switches [2:0].
-    input reset, // push buttons on the board are active low.
-	 input [3:1] turn_buttons, // KEY3 = left, KEY2 = hazard, KEY1 = right (active low).
+	 input [3:0] turn_buttons, // KEY3 = left, KEY2 = hazard, KEY1 = reset, KEY0 = right (active low).
 
     output VGA_CLK,
     output VGA_HS,
@@ -31,6 +30,8 @@ module VGA_Tutorial (
 	localparam MODE_TBIRD  = 2'b10;
 	localparam MODE_MARIO = 2'b11;
 	
+	wire reset = (mode_select == MODE_OFF); // "off" mode holds everything in reset
+	
 	wire pix_en, hsync, vsync, bright;
 	wire [9:0] hcount, vcount;
 	
@@ -44,7 +45,7 @@ module VGA_Tutorial (
 	// VGA controller/timer
 	vga_timer timer (
 		.clk(clock),
-		.reset(~reset), // active low
+		.reset(reset), // active low
 		.pix_en(pix_en),
 		.hcount(hcount),
 		.vcount(vcount),
@@ -71,18 +72,18 @@ module VGA_Tutorial (
 	// Clock divider
 	slow_tick blink_timer (
 		.clk(clock),
-		.reset(~reset),
+		.reset(reset),
 		.tick(tick)
 	);
 	
 	// FSM logic
 	tbird_fsm turn_signal (
 		.clk(clock),
-		.reset(~reset),
 		.tick(tick),
 		.left(~turn_buttons[3]),
 		.hazard(~turn_buttons[2]),
-		.right(~turn_buttons[1]),
+		.reset(reset | ~turn_buttons[1]),
+		.right(~turn_buttons[0])
 		.lights(lights)
 	);
 	

@@ -55,7 +55,6 @@ set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_signal_integrity
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_boundary_scan
 set_location_assignment PIN_AF14 -to clock
-set_location_assignment PIN_AA14 -to reset
 set_location_assignment PIN_AE12 -to mode_select[9]
 set_location_assignment PIN_AD10 -to mode_select[8]
 set_location_assignment PIN_AF9 -to color_select[2]
