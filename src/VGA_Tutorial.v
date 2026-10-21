@@ -12,7 +12,6 @@
 */
 module VGA_Tutorial (
     input clock, // 50 MHz from the board.
-	 input reset,
     input [9:8] mode_select, // slide switches [9:8].
     input [2:0] color_select, // slide switches [2:0].
 	 input [3:0] turn_buttons, // KEY3 = left, KEY2 = hazard, KEY1 = reset, KEY0 = right (active low).
@@ -31,6 +30,8 @@ module VGA_Tutorial (
 	localparam MODE_TBIRD  = 2'b10;
 	localparam MODE_MARIO = 2'b11;
 	
+	wire reset = (mode_select == MODE_OFF); // "off" mode holds everything in reset (active high)
+
 	wire pix_en, hsync, vsync, bright;
 	wire [9:0] hcount, vcount;
 	
@@ -81,7 +82,7 @@ module VGA_Tutorial (
 		.tick(tick),
 		.left(~turn_buttons[3]),
 		.hazard(~turn_buttons[2]),
-		.reset(~reset),
+		.reset(reset | ~turn_buttons[1]),   // off mode or KEY1
 		.right(~turn_buttons[0]),
 		.lights(lights)
 	);
@@ -101,7 +102,7 @@ module VGA_Tutorial (
 	wire [7:0] red3, green3, blue3;
 		mario mode3 (
 		.clk(clock),
-		.reset(~reset),
+		.reset(reset),
 		.bright(bright),
 		.hsync(hsync),
 		.vsync(vsync),
