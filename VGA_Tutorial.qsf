@@ -54,8 +54,6 @@ set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_symbol
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_signal_integrity
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_boundary_scan
-set_global_assignment -name VERILOG_FILE src/VGA_Tutorial.v
-set_global_assignment -name VERILOG_FILE src/common/vga_timer.v
 set_location_assignment PIN_AF14 -to clock
 set_location_assignment PIN_AA14 -to reset
 set_location_assignment PIN_AE12 -to mode_select[9]
@@ -92,8 +90,18 @@ set_location_assignment PIN_H14 -to VGA_B[4]
 set_location_assignment PIN_F15 -to VGA_B[5]
 set_location_assignment PIN_G15 -to VGA_B[6]
 set_location_assignment PIN_J14 -to VGA_B[7]
-set_global_assignment -name VERILOG_FILE src/checkpoint1_color/bitgen_color.v
+set_location_assignment PIN_Y16 -to turn_buttons[3]
+set_location_assignment PIN_W15 -to turn_buttons[2]
+set_location_assignment PIN_AA15 -to turn_buttons[1]
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name VERILOG_FILE src/checkpoint2_turn_signal/tbird_fsm.v
+set_global_assignment -name VERILOG_FILE src/VGA_Tutorial.v
+set_global_assignment -name VERILOG_FILE src/common/vga_timer.v
+set_global_assignment -name VERILOG_FILE src/checkpoint1_color/bitgen_color.v
+set_global_assignment -name VERILOG_FILE src/common/slow_tick.v
+set_global_assignment -name VERILOG_FILE src/checkpoint2_turn_signal/bitgen_tbird.v
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

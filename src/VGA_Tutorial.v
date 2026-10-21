@@ -15,6 +15,7 @@ module VGA_Tutorial (
     input [9:8] mode_select, // slide switches [9:8].
     input [2:0] color_select, // slide switches [2:0].
     input reset, // push buttons on the board are active low.
+	 input [3:1] turn_buttons, // KEY3 = left, KEY2 = hazard, KEY1 = right (active low).
 
     output VGA_CLK,
     output VGA_HS,
@@ -64,6 +65,37 @@ module VGA_Tutorial (
 	
 	// Mode 2: "Thunderbird" turn signal FSM.
 	wire [7:0] red2, green2, blue2;
+	wire tick;
+	wire [5:0] lights;
+	
+	// Clock divider
+	slow_tick blink_timer (
+		.clk(clock),
+		.reset(~reset),
+		.tick(tick)
+	);
+	
+	// FSM logic
+	tbird_fsm turn_signal (
+		.clk(clock),
+		.reset(~reset),
+		.tick(tick),
+		.left(~turn_buttons[3]),
+		.hazard(~turn_buttons[2]),
+		.right(~turn_buttons[1]),
+		.lights(lights)
+	);
+	
+	// BITGEN for the turn signal.
+	bitgen_tbird mode2 (
+		.bright(bright),
+		.hcount(hcount),
+		.vcount(vcount),
+		.lights(lights),
+		.VGA_R(red2),
+		.VGA_G(green2),
+		.VGA_B(blue2)
+	);
 	
 	// Mode 3: Mario walking.
 	wire [7:0] red3, green3, blue3;
