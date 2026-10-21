@@ -83,7 +83,7 @@ module VGA_Tutorial (
 		.left(~turn_buttons[3]),
 		.hazard(~turn_buttons[2]),
 		.reset(reset | ~turn_buttons[1]),
-		.right(~turn_buttons[0])
+		.right(~turn_buttons[0]),
 		.lights(lights)
 	);
 	
