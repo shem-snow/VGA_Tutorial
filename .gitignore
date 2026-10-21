@@ -1,0 +1,27 @@
+# Ignore everything (else) by default
+*
+!.gitignore
+
+# keep Verilog files and Quartus project settings
+!*.v
+!*.qsf
+
+# keep important folders
+!glyphs/
+!glyphs/**
+glyphs/*.exe
+!src/
+!src/**
+!tb/
+!tb/**
+!docs/
+!docs/**
+
+# keep .csv files
+!*.csv
+
+# Allow Git to search one folder/directory down to look for additional files
+!*/
+
+# Keep the README
+!README.md
